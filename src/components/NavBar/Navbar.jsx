@@ -7,7 +7,7 @@ const Navbar = () => {
     return(
         <nav>
             <div className="nav-wrapper navbar">
-                <a href="#" className="brand-logo">Logo</a>
+
                 {isLogin
                     ? <ul id="nav-mobile" className="right hide-on-med-and-down">
                         <li><a href="/" onClick={logout}>Выйти</a></li>
