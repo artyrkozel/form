@@ -5,16 +5,11 @@ const Navbar = () => {
     const {logout, isLogin} = useContext(AuthContext)
 
     return(
-        <nav>
-            <div className="nav-wrapper navbar">
-
+        <nav className="navbar">
+            <div className="container">
                 {isLogin
-                    ? <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="/" onClick={logout}>Выйти</a></li>
-                    </ul>
-                    : <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="/">Войти</a></li>
-                    </ul>
+                    ? <a className="text__button navbar__btn" href="/" onClick={logout}>Sign Out</a>
+                    : <a className="text__button navbar__btn" href="/">Sign In</a>
                 }
             </div>
         </nav>

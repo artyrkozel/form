@@ -7,10 +7,10 @@ const MainPage = () => {
     const [text, setText] = useState('')
     const {userId} = useContext(AuthContext)
     const [todos, setTodos] = useState([])
-
+    const [error, setError] = useState('')
     const getTodo = useCallback(async () => {
         try {
-            await axios.get('https://autorisation-form.herokuapp.com/api/todo', {
+            await axios.get('https://autorisation-form.herokuapp.com/api/todo/', {
                 headers: {
                     'ContentType': 'application/json'
                 },
@@ -23,7 +23,13 @@ const MainPage = () => {
         }
     }, [userId])
 
+    const onChangeHandler = (e) => {
+        setError('')
+        setText(e.target.value)
+    }
+
     const createTodo = useCallback(async () => {
+        if(text.trim() === '') return setError('Task is empty')
         try {
             await axios.post('https://autorisation-form.herokuapp.com/api/todo/add', {text, userId},
                 {
@@ -87,28 +93,25 @@ const MainPage = () => {
 
     return (
         <div className="container">
-            <div className="main-page">
-                <h4>Add task</h4>
-                <form className="form, form-login" onSubmit={e => e.preventDefault()}>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input type="text" id="text" name="input" value={text} className="validate"
-                                   onChange={e => setText(e.target.value)}/>
-                            <label htmlFor="input">Task</label>
-                        </div>
+            <div className="main">
+                <form className="form" onSubmit={e => e.preventDefault()}>
+                    <div className="form-group">
+                        <label htmlFor="input" className="label">Add task</label>
+                        <input type="text" id="text" name="input" value={text} className="input" onChange={onChangeHandler}/>
+                        {error && <p className="error-message">{error}</p>}
                     </div>
-                    <div className="row">
-                        <button className="waves-effect  waves-light btn blue" onClick={createTodo}>Add</button>
-                    </div>
+                    <button className="form__button" onClick={createTodo}>
+                        Add
+                    </button>
                 </form>
                 <h3>Active tasks: </h3>
                 <div className="todos">
                     {todos.map((todo, index) => {
-                        let cls = ['row flex todos-item']
-                        if(todo.completed){
+                        let cls = ['todos-item']
+                        if (todo.completed) {
                             cls.push('completed')
                         }
-                        if(todo.important){
+                        if (todo.important) {
                             cls.push('important')
                         }
                         return (
@@ -116,9 +119,12 @@ const MainPage = () => {
                                 <div className="col todos-num">{index}</div>
                                 <div className="col todos-text">{todo.text}</div>
                                 <div className="col todos-buttons">
-                                    <i className="material-icons blue-text" onClick={() => completedTodoHandler(todo._id)}>check</i>
-                                    <i className="material-icons orange-text" onClick={() => importantTodoHandler(todo._id)}>warning</i>
-                                    <i className="material-icons red-text" onClick={() => removeTodo(todo._id)}>delete</i>
+                                    <i className="material-icons"
+                                       onClick={() => completedTodoHandler(todo._id)}>check</i>
+                                    <i className="material-icons orange-text"
+                                       onClick={() => importantTodoHandler(todo._id)}>warning</i>
+                                    <i className="material-icons red-text"
+                                       onClick={() => removeTodo(todo._id)}>delete</i>
                                 </div>
                             </div>
                         )

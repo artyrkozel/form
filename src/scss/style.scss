@@ -3,14 +3,34 @@
 @import 'global';
 
 .navbar{
-  padding-left: 10px;
+  background-color: #eee;
+  box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+  padding: 23px 0px;
+  &__btn{
+    margin-left: auto;
+    display: block;
+    max-width: 108px;
+    text-align: center;
+    background: #ff6600;
+  }
 }
-.main-page{
+.main{
   margin-top: 30px;
 }
+.form{
+  position: relative;
+  &__button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    min-width: 100px;
+  }
+}
+
+
+
 .auth-page {
-  text-align: center;
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
   margin-top: 150px;
   .btn-reg{
@@ -28,6 +48,7 @@
     cursor: pointer;
     border-left: 2px solid #f60;
     position: relative;
+    margin-bottom: 20px;
     &.completed{
         &::after{
           position: absolute;
@@ -58,3 +79,93 @@
   }
 }
 
+.login{
+  &__inner{
+    display: flex;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  }
+  &__form{
+    width: 50%;
+    padding: 48px;
+    background-color: #fff;
+    @media screen and(max-width: 992px){
+      padding: 24px;
+    }
+  }
+  &__form-title{
+    margin-bottom: 24px;
+  }
+  &__right{
+    width: 50%;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f75959;
+    background: -moz-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
+    background: -webkit-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
+    background: -o-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
+    background: -ms-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
+    background: -webkit-linear-gradient(315deg, #f75959 0%, #f35587 100%);
+    background: -o-linear-gradient(315deg, #f75959 0%, #f35587 100%);
+    background: linear-gradient(135deg, #f75959 0%, #f35587 100%);
+    padding: 48px;
+    @media screen and(max-width: 992px){
+      padding: 24px;
+    }
+
+  }
+}
+
+.text{
+  &__title{
+    margin-bottom: 12px;
+  }
+  &__description{
+    margin-bottom: 15px;
+  }
+  &__button{
+    border: 1px solid #fff;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: initial;
+    cursor: pointer;
+    border-radius: 50px;
+    background: transparent;
+    color: #fff;
+    transition: .6s;
+    &:hover{
+      transition: .6s;
+      background-color: #fff;
+      color: black;
+    }
+  }
+}
+
+.form-group{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+}
+.error-message{
+  position: absolute;
+  bottom: -25px;
+  left: 20px;
+  color: firebrick;
+}
+
+@media screen and(max-width: 768px){
+  .login{
+    &__inner{
+      flex-direction: column-reverse;
+    }
+    &__right{
+      width: 100%;
+    }
+    &__form{
+      width: 100%;
+    }
+  }
+}
